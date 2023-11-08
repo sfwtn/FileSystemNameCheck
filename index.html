@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="icon.svg">
+  <title>File System Name Check</title>
+</head>
+
+<script>
+  function parse() {
+    const input = document.getElementById('input').value;
+
+    if (input==null || input==""){
+      document.getElementById('WINDOWSicon').src = "waiting.svg"
+      document.getElementById('WINDOWSerror').style.color = "";
+      document.getElementById('WINDOWSerror').textContent = "Awaiting input";
+      document.getElementById('LINUXicon').src = "waiting.svg"
+      document.getElementById('LINUXerror').style.color = "";
+      document.getElementById('LINUXerror').textContent = "Awaiting input";
+      document.getElementById('APPLEicon').src = "waiting.svg"
+      document.getElementById('APPLEerror').style.color = "";
+      document.getElementById('APPLEerror').textContent = "Awaiting input";
+      return;
+    }
+    const WINDOWSInvalidCharacters = /[<>:"/\\|?*]/g;
+    const LINUXInvalidCharacters = /[/]/g;
+    const APPLEInvalidCharacters = /[:/]/g;
+
+    try {
+      WINDOWS = !WINDOWSInvalidCharacters.test(input);
+      LINUX = !LINUXInvalidCharacters.test(input);
+      APPLE = !APPLEInvalidCharacters.test(input);
+      console.log('win', WINDOWS);
+      console.log('lin', LINUX);
+      console.log('app', APPLE);
+      switch (WINDOWS) {
+        case true:
+          document.getElementById('WINDOWSicon').src = "yes.svg"
+          document.getElementById('WINDOWSerror').style.color = 'green';
+          document.getElementById('WINDOWSerror').textContent = "File name valid";
+          break;
+        case false:
+          document.getElementById('WINDOWSicon').src = "no.svg"
+          const WINDOWSmatch = input.match(WINDOWSInvalidCharacters);
+          document.getElementById('WINDOWSerror').style.color = 'red';
+          document.getElementById('WINDOWSerror').textContent = WINDOWSmatch;
+          break;
+      }
+      switch (LINUX) {
+        case true:
+          document.getElementById('LINUXicon').src = "yes.svg"
+          document.getElementById('LINUXerror').style.color = 'green';
+          document.getElementById('LINUXerror').textContent = "File name valid";
+          break;
+        case false:
+          document.getElementById('LINUXicon').src = "no.svg"
+          const LINUXmatch = input.match(LINUXInvalidCharacters);
+          document.getElementById('LINUXerror').style.color = 'red';
+          document.getElementById('LINUXerror').textContent = LINUXmatch;
+          break;
+      }
+      switch (APPLE) {
+        case true:
+          document.getElementById('APPLEicon').src = "yes.svg"
+          document.getElementById('APPLEerror').style.color = 'green';
+          document.getElementById('APPLEerror').textContent = "File name valid";
+          break;
+        case false:
+          document.getElementById('APPLEicon').src = "no.svg"
+          const APPLEmatch = input.match(APPLEInvalidCharacters);
+          document.getElementById('APPLEerror').style.color = 'red';
+          document.getElementById('APPLEerror').textContent = APPLEmatch;
+          break;
+      }
+    } catch (error) {
+      console.error(`An error occurred: ${error.message}`);
+    }
+  }
+</script>
+
+<body>
+  <header></header>
+  <main>
+    <div class="description">
+      <img src="icon.svg" width="128px" height="128px">
+      <h1>File System Name Check</h1>
+      <pr>Have you tried sending a file between devices only to get an error saying that it contains invalid symbols?
+      </pr>
+      <pr>Paste the file name you want to check bellow and see if it can safely be used across most popular file
+        systems.</pr>
+    </div>
+
+    <div class="container">
+      <input id="input" placeholder="Your file name" oninput="parse()">
+    </div>
+
+    <div class="cardfield">
+      <div class="card">
+        <img src="waiting.svg" alt="Passes" style="width:48px" id="WINDOWSicon">
+        <h2>Windows</h2>
+        <h3><i>NTFS, exFAT, FAT32</i></h3>
+        <p id="WINDOWSerror">Awaiting input</p>
+      </div>
+      <div class="card">
+        <img src="waiting.svg" alt="Passes" style="width:48px" id="LINUXicon">
+        <h2>Linux & BSDs</h2>
+        <h3><i>EXT4, XFS, BTRFS, F2FS, ZFS</i></h3>
+        <p id="LINUXerror">Awaiting input</p>
+      </div>
+      <div class="card">
+        <img src="waiting.svg" alt="Passes" style="width:48px" id="APPLEicon">
+        <h2>Apple</h2>
+        <h3><i>APFS, HFS+</i></h3>
+        <p id="APPLEerror">Awaiting input</p>
+      </div>
+    </div>
+
+  </main>
+</body>
+
+</html>
