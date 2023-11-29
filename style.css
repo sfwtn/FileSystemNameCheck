@@ -35,11 +35,6 @@ body {
 }
 
 @media (max-width: 1064px){
-    .output{
-        max-width: 100%;
-        overflow: none;
-    }
-
     .cardfield{
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
