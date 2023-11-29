@@ -29,6 +29,26 @@ body {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.output{
+    max-width: 100%;
+    overflow: scroll;
+}
+
+@media (max-width: 1064px){
+    .output{
+        max-width: 100%;
+        overflow: none;
+    }
+
+    .cardfield{
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    body{
+        margin-top: 40vh;
+    }
+    
+}
+
 .card {
     margin: 12px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
